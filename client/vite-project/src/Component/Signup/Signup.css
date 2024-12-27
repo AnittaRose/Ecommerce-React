@@ -1,0 +1,78 @@
+/* Container to center the card */
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f7fc;
+    padding: 0 15px;
+    width: 100vh;
+}
+
+/* Card styling */
+.card11 {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 10px;
+}
+
+/* Form group styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Input field styling */
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border 0.3s ease;
+}
+
+/* Focus state for inputs */
+.form-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Submit button styling */
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive design using media queries */
+@media screen and (max-width: 768px) {
+    .card {
+        max-width: 90%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .card {
+        padding: 15px;
+    }
+    .form-input {
+        padding: 8px;
+    }
+    .submit-btn {
+        padding: 10px;
+    }
+}

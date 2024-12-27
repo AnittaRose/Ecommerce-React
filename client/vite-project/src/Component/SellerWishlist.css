@@ -1,0 +1,25 @@
+.wishlisttt{
+    width: 12px;
+}
+.navtop{
+    /* margin-bottom: 28em; */
+
+    background-color: orangered;
+    width: 203vh;
+    /* margin: aut; */
+    border-radius: 30px;
+    padding: 8px;
+}
+.wishlistimgsmall{
+    width: 20px;
+    height: 20px;
+}
+.cartimgsmall{
+    width: 20px;
+    height: 20px;
+}
+.navtopp{
+    background-color: orangered;
+    padding: 8px;
+    border-radius: 30px;
+}

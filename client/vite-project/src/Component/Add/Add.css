@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+  }
+  .input{
+    width: 100vh;
+    padding: 20px;
+    border-radius: 5px;
+    border: 2px solid orangered;
+    color: orangered;
+    font-size: 15px;
+    color: black;
+  }
+  .input::placeholder{
+    color: black;
+    font-weight: bold;
+  }
+  .SelectCategoriesinput{
+    width: 70vh;
+    padding: 20px;
+    border-radius: 5px;
+    border: 2px solid orangered;
+    /* background:rgb(255,205,187); */
+  }
+.SelectCategoriesinput::placeholder{
+  color: black;
+}
+  .footer{
+    width: 70vh;
+    border: 2px solid orangered;
+    padding: 18px;
+    border-radius: 5px;
+    background-color:transparent;
+  }
+  .subbttn{
+     width: 35vh;
+     padding: 5px;
+     border: 2px solid orangered;
+     border-radius: 5px;
+     background-color: white;
+     color: orangered;
+     font-size: 18px;
+     font-weight: bolder;
+  }
+  .form12{
+    /* background-color: rgba(255, 68, 0, 0.268); */
+    width: 108vh;
+    height: 100vh;
+  }
