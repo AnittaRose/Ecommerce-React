@@ -150,7 +150,11 @@ function Single() {
               <div className="carousel-inner">
                 {data.Images.map((Images, index) => (
                   <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
-                    <img src={`http://localhost:3000${Images}`} className="d-block w-100" alt={`Carousel Image ${index + 1}`} />
+                    <img 
+                        src={`http://localhost:3000/${Images.replace(/\\/g, '/')}`} 
+                        className="d-block w-100" 
+                        alt={`Carousel Image ${index + 1}`} 
+                      />
                   </div>
                 ))}
               </div>
