@@ -3,79 +3,145 @@ import axios from 'axios';
 
 function Wishlist() {
   const [wishlist, setWishlist] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [allProducts, setAllProducts] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
 
+  // useEffect(() => {
+  //   const fetchWishlist = async () => {
+  //     try {
+  //       console.log("Fetching product list...");
+
+  //       let params = new URLSearchParams(window.location.search);
+  //       let token_key = params.get('login');
+  //       let token = localStorage.getItem(token_key);
+  //       let userId = params.get('userId');
+  //       let productId = params.get('id');
+
+  //       console.log("Token Key:", token_key);
+  //       console.log("Token:", token);
+
+  //       // Params object for the GET request
+  //       let paramsData = {
+  //         userId,
+  //         productId
+  //       };
+
+  //       const response = await axios.get('http://localhost:3000/wishlistproducts', { params: paramsData });
+
+  //       console.log('Response received:', response);
+
+  //       const data = response.data?.data;
+  //       console.log('Wishlist data:', data);
+
+  //       const wishlistData = data.map(item => item.wishlist || []);
+  //       console.log("wishlistData...........................", wishlistData);
+
+  //       setWishlist(wishlistData);
+
+  //     } catch (error) {
+  //       console.error("Error fetching products:", error);
+  //       setError("Failed to load products. Please try again later.");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchWishlist();
+  // }, []);
   useEffect(() => {
-    const fetchWishlist = async () => {
-      try {
-        console.log("Fetching product list...");
-
+    async function fetchWishlist() {
         let params = new URLSearchParams(window.location.search);
         let token_key = params.get('login');
         let token = localStorage.getItem(token_key);
         let userId = params.get('userId');
         let productId = params.get('id');
 
-        console.log("Token Key:", token_key);
-        console.log("Token:", token);
+        try {
+            // Fetch all products
+            const allProductsResponse = await fetch("http://localhost:3000/View", {
+                method: "GET",
+            });
 
-        // Params object for the GET request
-        let paramsData = {
-          userId,
-          productId
-        };
+            if (!allProductsResponse.ok) {
+                throw new Error("Failed to fetch all products");
+            }
 
-        const response = await axios.get('http://localhost:3000/wishlistproducts', { params: paramsData });
+            const allProductsData = await allProductsResponse.json();
+            const products = allProductsData?.data || []; // Fallback to empty array if data is undefined
+            setAllProducts(products);
 
-        console.log('Response received:', response);
+      
 
-        const data = response.data?.data;
-        console.log('Wishlist data:', data);
+            // Fetch wishlist
+            const wishlistResponse = await fetch('http://localhost:3000/wishlistproducts', {
+                method: "GET", // Assuming you need POST for sending parameters like `userId`, `productId`
+              
+            });
 
-        const wishlistData = data.map(item => item.wishlist || []);
-        console.log("wishlistData", wishlistData);
+            if (!wishlistResponse.ok) {
+                throw new Error(`Failed to fetch wishlist. Status: ${wishlistResponse.status}`);
+            }
 
-        setWishlist(wishlistData);
+            const wishlistData = await wishlistResponse.json();
+            // Ensure wishlistItems is an array, fallback to empty array if not
+            const wishlistItems = (Array.isArray(wishlistData?.data) ? wishlistData?.data : []).map(item => item.productId || []);
+            console.log("wishlistItems", wishlistItems);
 
-      } catch (error) {
-        console.error("Error fetching products:", error);
-        setError("Failed to load products. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
+            // Validate wishlist data
+            if (!Array.isArray(wishlistItems) || wishlistItems.length === 0) {
+                throw new Error("Invalid or empty wishlist data received.");
+            }
+
+            // Extract product IDs from the wishlist and match with all products
+            const wishlistIds = wishlistItems.flatMap(item => item.productId ? [item.productId] : []);
+            const matchedItems = products.filter((product) => wishlistIds.includes(product._id));
+            console.log("matchedItems", matchedItems);
+
+            if (matchedItems.length === 0) {
+                setErrorMessage("No items in your wishlist match available products.");
+            } else {
+                setErrorMessage(""); // Clear error message if matches are found
+            }
+
+            setWishlist(matchedItems);
+        } catch (error) {
+            console.error("Error fetching wishlist:", error);
+            setErrorMessage("Failed to load wishlist. Please try again later.");
+            setWishlist([]); // Reset wishlist on error
+        }
+    }
 
     fetchWishlist();
-  }, []);
+}, []);
 
-  const deleteWishlistProduct = async (itemId) => {
-    try {
-      console.log(`Deleting product with ID: ${itemId}`);
 
-      let params = new URLSearchParams(window.location.search);
-      let token_key = params.get('login');
-      let token = localStorage.getItem(token_key);
+  // const deleteWishlistProduct = async (itemId) => {
+  //   try {
+  //     console.log(`Deleting product with ID: ${itemId}`);
 
-      await axios.delete(`http://localhost:3000/wishlistproducts/${itemId}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
+  //     let params = new URLSearchParams(window.location.search);
+  //     let token_key = params.get('login');
+  //     let token = localStorage.getItem(token_key);
 
-      console.log(`Product with ID: ${itemId} deleted successfully.`);
+  //     await axios.delete(`http://localhost:3000/wishlistproducts/${itemId}`, {
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`,
+  //       },
+  //     });
 
-      // Filter out the deleted product from the wishlist
-      setWishlist((prevWishlist) => prevWishlist.filter(item => item._id !== itemId));
+  //     console.log(`Product with ID: ${itemId} deleted successfully.`);
 
-    } catch (error) {
-      console.error(`Error deleting product with ID ${itemId}:`, error);
-      alert('Failed to delete the product. Please try again later.');
-    }
-  };
+  //     // Filter out the deleted product from the wishlist
+  //     setWishlist((prevWishlist) => prevWishlist.filter(item => item._id !== itemId));
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  //   } catch (error) {
+  //     console.error(`Error deleting product with ID ${itemId}:`, error);
+  //     alert('Failed to delete the product. Please try again later.');
+  //   }
+  // };
+
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>{error}</p>;
 
   return (
     <>
@@ -154,7 +220,7 @@ function Wishlist() {
             <div className="priceh2 px-2">Rs.{price}</div>
           </div>
         </div>
-        <div>
+        {/* <div>
           <div className="trashh">
             <img
               src="https://img.icons8.com/?size=100&id=14237&format=png&color=FA5252"
@@ -162,81 +228,13 @@ function Wishlist() {
               onClick={() => deleteWishlistProduct(itemId)}
             />
           </div>
-        </div>
+        </div> */}
       </div>
     );
   })
 )}
 
-        </div>
-      </div>
-      <div id="datacontainer" />
-      <div className="pt-5">
-        <div className="green">
-          <div className="row p-5">
-            <div className="col-2">
-              <div>
-                <div className="one px-3">Shop</div>
-                <ul className="pt-4">
-                  <li className="list">home</li>
-                  <li className="list">about</li>
-                  <li className="list">shop</li>
-                  <li className="list">Contact</li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-2">
-              <div>
-                <div className="one px-3">Policy</div>
-                <ul className="pt-4">
-                  <li className="list">terms &amp; conditions</li>
-                  <li className="list">privacy policy</li>
-                  <li className="list">refund policy</li>
-                  <li className="list">shipping policy</li>
-                  <li className="list">accessibility statement</li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-2">
-              <div>
-                <div className="one px-3">contact</div>
-                <ul className="pt-4">
-                  <li className="list">500 terry francine street</li>
-                  <li className="list">san francisco, ca 94158</li>
-                  <li className="list">info@mysite.com</li>
-                  <li className="list">123-456-7890</li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-6">
-              <div className="sub">subscribe to our newsletter</div>
-              <div className="be pt-3">
-                be the first to know about our hottest discounts
-              </div>
-              <div className="pt-3">
-                <label htmlFor="pt-2" className="label">
-                  Email
-                </label>
-                <div className="pt-2">
-                  <div className="pt-1">
-                    <input type="email" className="input" />
-                  </div>
-                  <div className="pt-1">
-                    <input type="checkbox" />
-                    <span className="px-3 span">
-                      Yes, subscribe me to your newsletter.
-                    </span>
-                  </div>
-                </div>
-                <div className="pt-3">
-                  <button className="subb">Subscribe</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="px-5 pt-5">
-            <div className="Onsko1 fw-bold">#Onsko</div>
-          </div>
+      
         </div>
       </div>
     </>

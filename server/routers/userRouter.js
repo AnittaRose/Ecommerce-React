@@ -18,16 +18,18 @@ router.get('/Single/:id',usercontroller.singleproductview);
 router.get('/singleuser/:id',usercontroller.soloUser);
 router.post('/Addtocart',usercontroller.addToCart)
 router.post('/addtowishlist',usercontroller.addToWishlist);
-router.get('/wishlistproducts',usercontroller.wishlistaddedproducts);
+router.get('/wishlistproducts/:id',usercontroller.wishlistaddedproducts);
 router.delete('/delete/:id', usercontroller.deleteproduct);
 router.get('/singlecartimg/:id',usercontroller.singlecart);
-// router.get('/wishsingle/:id',usercontroller.wishlistSingledata)
-router.post('/UpdateCart/:userId', usercontroller.updateCart);
+router.post('/updateCarts/:userId', usercontroller.updateCart);
 router.put('/edit/:id',usercontroller.editsellerproduct);
 router.delete('/deleteproduct/:id/:productId',usercontroller.deletewishlistproduct);
 router.delete('/deleteproductcart/:id/:productId',usercontroller.deleteaddtocarttproduct);
+router.get('/totalbuyers',usercontroller.totalBuyers);
+router.get('/totalseller',usercontroller.totalseller);
+router.get('/sellerDetails',usercontroller.sellerDetails);
+router.get('/buyerDetails',usercontroller.BuyerDetails);
 
-// router.get('/categories/:categoryId/:productId', usercontroller.getProductsByCategory);
 
 
 

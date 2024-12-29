@@ -398,9 +398,20 @@ border-radius: 8px;
 .navbar122{
   background-color: orangered;
   border-radius: 20px;
-  padding: 5px;
-  width: 120%;
+  padding: px;
+  width: 100%;
 }
 .bttnadd12{
   background-color: orangered;
+}
+.on{
+  padding-top: 20px;
+}
+.pro{
+  text-align: justify;
+  font-size: 20px;
+}
+.re{
+  font-size: 20px;
+  font-weight: bold;
 }

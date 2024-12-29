@@ -1,0 +1,65 @@
+.Sidebar{
+    background-color: black;
+    height: 100vh;
+    width: 40vh;
+}
+.adminimages{
+    width: 30px;
+}
+.longbar{
+    background-color: aliceblue;
+    height: 100vh;
+    width: 174vh;
+}
+.totalbox{
+    background-color: white;
+    width: 40vh;
+    height: 25vh;
+    border-radius: 10px;
+}
+.total{
+    text-align: center;
+    padding-top: 60px;
+    font-weight: 800;
+    font-size: 20px;
+}
+.total-2{
+    padding-left: 120px;
+}
+
+.sidebar {
+    min-height: 100vh;
+    background-color: #343a40;
+    color: white;
+    width: 30vh;
+}
+.sidebar a {
+    color: #adb5bd;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+}
+.sidebar a:hover {
+    background-color: #495057;
+    color: white;
+}
+.active {
+    background-color: #495057;
+    color: white;
+}
+.content {
+    padding: 20px;
+    padding-left: 10em;
+    padding-bottom: 25em;
+}
+.table{
+    width: 160vh;
+}
+.card12{
+    background-color: white;
+    width: 165vh;
+}
+.card-text{
+    color: white;
+    font-weight: bold;
+}

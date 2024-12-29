@@ -1,33 +1,14 @@
 
-
-
-
-// // const Checkout = (checkoutData, totalPrice) => {
-// //   const params = new URLSearchParams(location.search);
-// //   const id = params.get('userId');
-// //   const token_key = params.get('login');
-// //   const token = localStorage.getItem(token_key);
-
-// //   // Encode the data
-// //   const encodedCheckoutData = encodeURIComponent(JSON.stringify(checkoutData));
-// //   const encodedTotalPrice = encodeURIComponent(totalPrice);
-
-// //   // Proceed with navigation
-// //   navigate(`/CheckoutPage?id=${encodeURIComponent(id)}&checkoutData=${encodedCheckoutData}&totalPrice=${encodedTotalPrice}`);
-// // };
-
-
-
-// {/* <button className="btn1" onClick={() => Checkout(cartItems, (totalSubtotal * 1.05 + 5).toFixed(2))}> */}
-
-
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
 
 function Cart() {
+  const navigate = useNavigate();
   const params = new URLSearchParams(window.location.search);
   const productId = params.get('id');
+  // const token_key = localStorage.getItem('token_key');
   const userId = params.get('userId');
   const price = parseFloat(params.get('price')) || 0;
   const quantity = parseInt(params.get('quantity'), 10) || 1;
@@ -35,6 +16,30 @@ function Cart() {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(true);
+
+
+    // Fetch token and user id directly from URL params
+    let token_key = params.get('login');
+    let id = params.get('userId');
+
+    let token = localStorage.getItem(token_key);
+    console.log("Token:", token);
+
+  
+ 
+    const Checkout = (checkoutData, totalPrice) => {
+      const params = new URLSearchParams(location.search);
+      const id = params.get('userId');
+      const token_key = params.get('login');
+      const token = localStorage.getItem(token_key);
+    
+      // Encode the data
+      const encodedCheckoutData = encodeURIComponent(JSON.stringify(checkoutData));
+      const encodedTotalPrice = encodeURIComponent(totalPrice);
+    
+      // Proceed with navigation
+      navigate(`/OrderPage?id=${encodeURIComponent(id)}&checkoutData=${encodedCheckoutData}&totalPrice=${encodedTotalPrice}`);
+    };
 
   // Helper function to calculate totals
   const calculateTotals = (items) => {
@@ -51,19 +56,12 @@ function Cart() {
   useEffect(() => {
     const loadCart = async () => {
       try {
-        const params = new URLSearchParams(window.location.search);
-        const productId = params.get('id');
-        const userId = params.get('userId');
-        const price = parseFloat(params.get('price')) || 0;
-        const quantity = parseInt(params.get('quantity'), 10) || 1;
-        const title = params.get('title') || '';
-
         if (!productId || !userId) {
           console.error('Missing productId or userId');
           return;
         }
 
-        const data = { productId, userId, price, quantity, title };
+        const data = { productId, userId, price, quantity };
         const cartResponse = await axios.post('http://localhost:3000/Addtocart', data);
 
         if (cartResponse.status !== 200) {
@@ -98,24 +96,36 @@ function Cart() {
     };
 
     loadCart();
-  }, []);
+  }, [productId, userId, price, quantity]);
 
-  const updateQuantity = async (productId, delta) => {
+  const handleQuantityChange = async (item, increment) => {
+    const newQuantity = item.quantity + increment;
+
+    if (newQuantity < 1) return; // Prevent zero or negative quantities
+
+    // Optimistic UI update
+    const updatedCartItems = cartItems.map(cartItem =>
+      cartItem.productId === item.productId
+        ? { ...cartItem, quantity: newQuantity }
+        : cartItem
+    );
+
+    setCartItems(updatedCartItems);
+
+    // Calculate new total
+    calculateTotals(updatedCartItems);
+
     try {
-      const updatedItems = cartItems.map((item) => {
-        if (item.productId === productId) {
-          item.quantity = Math.max(1, item.quantity + delta); // Ensure quantity doesn't go below 1
-        }
-        return item;
+      const response = await axios.post(`http://localhost:3000/updateCarts/${userId}`, {
+        productId: item.productId,
+        newQuantity,
       });
 
-      const updatedItem = updatedItems.find(item => item.productId === productId);
-      await axios.post(`http://localhost:3000/UpdateCart/${userId}`, { productId, quantity: updatedItem.quantity });
-
-      setCartItems(updatedItems);
-      calculateTotals(updatedItems);
+      if (response.status !== 200) {
+        console.error('Failed to update quantity on the server:', response.data.message);
+      }
     } catch (error) {
-      console.error('Error updating quantity:', error);
+      console.error('Error updating cart:', error);
     }
   };
 
@@ -157,9 +167,9 @@ function Cart() {
               <div className="cart-item-quantity">
                 <div className="quantity-wrapper">
                   <div className="quantity-display">{item.quantity}</div>
-                  <div className="quantity-controls">
-                    <button className="quantity-increase" onClick={() => updateQuantity(item.productId, 1)}>+</button>
-                    <button className="quantity-decrease" onClick={() => updateQuantity(item.productId, -1)}>-</button>
+                  <div className="quantity-controls d-flex">
+                    <button className="quantity-increase" onClick={() => handleQuantityChange(item, 1)}>+</button>
+                    <button className="quantity-decrease" onClick={() => handleQuantityChange(item, -1)}>-</button>
                   </div>
                 </div>
               </div>
@@ -174,7 +184,10 @@ function Cart() {
         <h2 className="summary-items">{totalQuantity} Items</h2>
         <h3 className="summary-total">${totalPrice.toFixed(2)}</h3>
         <h4 className="summary-note">Shipping + Tax Included</h4>
-        <button className="checkout-button">Purchase</button>
+        {/* <button className="checkout-button">Purchase</button> */}
+        <button className="checkout-button" onClick={() => Checkout(cartItems,totalPrice)}>
+        Purchase
+      </button>
       </div>
     </div>
   );

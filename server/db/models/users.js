@@ -64,6 +64,10 @@ const userSchema = new mongoose.Schema({
                     }
                 }
             ],
+            isBlocked: {
+                type: Boolean,
+                default: false, // New sellers are not blocked by default
+            },
 });
 
 module.exports = mongoose.model('users', userSchema);

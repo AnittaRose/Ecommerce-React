@@ -164,92 +164,103 @@ function Add() {
   
 
   return (
-
-  <div className="form12 pt-5 px-5 position-absolute top-50 start-50 translate-middle">
-  <div className="d-flex flex-column flex-md-row">
-    <div className="pt-4 w-100">
-      <form onSubmit={Addproducts} className="form">
-        <div className="bg-white p-4 rounded shadow-sm">
-          <div className="mb-3">
-            <input
-              placeholder="Title"
-              className="form-control"
-              id="title"
-              value={formData.title}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              placeholder="Description"
-              className="form-control"
-              id="description"
-              value={formData.description}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              placeholder="Price"
-              className="form-control"
-              id="price"
-              value={formData.price}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              placeholder="Stock"
-              className="form-control"
-              id="rating"
-              value={formData.rating}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              placeholder="Brand"
-              className="form-control"
-              id="brand"
-              value={formData.brand}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-3">
-            <select
-              id="category"
-              className="form-select"
-              value={formData.category}
-              onChange={handleInputChange}
-            >
-              <option value="">Select Category</option>
-              <option value="Make up">Make up</option>
-              <option value="Skin care">Skin care</option>
-              <option value="Hair care">Hair care</option>
-              <option value="Body care">Body care</option>
-              <option value="Fragrance">Fragrance</option>
-              <option value="Face care">Face care</option>
-            </select>
-          </div>
+<div className='backgroundimg'>
+      <div className="form12 pt-5 px-5 position-absolute top-50 start-50 translate-middle">
+      <div className="d-flex flex-column flex-md-row">
+        <div className="pt-4 w-100">
+          <form onSubmit={Addproducts} className="form123">
+            <div className=" p-4 rounded shadow-sm fo">
+              <div className="mb-3">
+                <input
+                  placeholder="Title"
+                  className="form-control1"
+                  id="title"
+                  value={formData.title}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  placeholder="Description"
+                  className="form-control1"
+                  id="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  placeholder="Price"
+                  className="form-control1"
+                  id="price"
+                  value={formData.price}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  placeholder="Stock"
+                  className="form-control1"
+                  id="rating"
+                  value={formData.rating}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  placeholder="Brand"
+                  className="form-control1"
+                  id="brand"
+                  value={formData.brand}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-3">
+                <select
+                  id="category"
+                  className="form-select"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                >
+                  <option value="">Select Category</option>
+                  <option value="Make up">Make up</option>
+                  <option value="Skin care">Skin care</option>
+                  <option value="Hair care">Hair care</option>
+                  <option value="Body care">Body care</option>
+                  <option value="Fragrance">Fragrance</option>
+                  <option value="Face care">Face care</option>
+                </select>
+              </div>
+              <div className="mt-3 mul">
+              <input
+                type="file"
+                id="images"
+                name="images"
+                multiple
+                className="form-control1"
+                onChange={handleFileChange}
+              />
+            </div>
+            </div>
+            {/* <div className="mt-3 mul">
+              <input
+                type="file"
+                id="images"
+                name="images"
+                multiple
+                className="form-control"
+                onChange={handleFileChange}
+              />
+            </div> */}
+            <div className="text-center mt-4">
+              <button type="submit" className="btnn123 w-100">
+                Add Product
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="mt-3">
-          <input
-            type="file"
-            id="images"
-            name="images"
-            multiple
-            className="form-control"
-            onChange={handleFileChange}
-          />
-        </div>
-        <div className="text-center mt-4">
-          <button type="submit" className="btn btn-primary w-100">
-            Add Product
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
-  </div>
 </div>
 
 

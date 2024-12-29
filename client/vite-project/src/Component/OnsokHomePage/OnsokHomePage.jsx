@@ -1,8 +1,28 @@
 import React from "react"
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
 
 
 function OnsokHomePage() {
+    const params = new URLSearchParams(window.location.search);
+    console.log("params", params); // Debugging log for parameters in the URL
+  
+    // Fetch token and user id directly from URL params
+    let token_key = params.get('login');
+    console.log("Token Key from URL:", token_key);
+  
+    // If token_key exists, fetch the token from localStorage
+    let token = localStorage.getItem(token_key);
+    console.log("Token from localStorage:", token);
+  
+    let userId = params.get('id');
+    console.log("User ID from URL:", userId);
+    const navigate = useNavigate(); // For navigation
+
+
+    
+    
     return (
 
         <>
@@ -38,6 +58,7 @@ function OnsokHomePage() {
                         <div className="p-2 home">
                         <Link to="/Signup" className="login11">Signup</Link>
                         </div>
+                        
                        
                         <div className="p-2 home">
                             <img
@@ -64,11 +85,11 @@ function OnsokHomePage() {
                 </div>
             </div>
             <div className="image-container">
-                {/* <img src="https://static.wixstatic.com/media/84770f_a4e5aee60e58478a8781128441765935~mv2.jpg/v1/crop/x_45,y_89,w_2955,h_1767/fill/w_2522,h_1356,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/fold1_hero%20(1).jpg" className="orangegurlsimg"></img> */}
-                {/* <div className="contentshine">Shine on</div> */}
-                {/* /<div className="contentbeauty">beauty that reflects your spirit</div> */}
+                 <img src="https://static.wixstatic.com/media/84770f_a4e5aee60e58478a8781128441765935~mv2.jpg/v1/crop/x_45,y_89,w_2955,h_1767/fill/w_2522,h_1356,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/fold1_hero%20(1).jpg" className="orangegurlsimg"></img>
+        
+                 <div className="contentbeauty">beauty that reflects your spirit</div>
                 <div className="contentbttn">
-                    {/* <button className="">Shop Now</button> */}
+                    <button className="shop11">Shop Now</button>
                 </div>
             </div>
             <div className="image-container">

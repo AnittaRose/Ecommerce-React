@@ -47,3 +47,30 @@
     width: 108vh;
     height: 100vh;
   }
+.backgroundimg{
+  background-image: url(https://img.freepik.com/free-photo/top-view-frame-with-mascara-copy-space_23-2148301887.jpg?t=st=1735387195~exp=1735390795~hmac=1cb4950c92e87d7a7622090cffa365d2555d55c6808374bf6fd9a4175ee056a1&w=996);
+  background-position: center;
+  background-size: cover;
+  width: 214vh;
+  height: 100vh;
+}
+.form-control1{
+  width: 85vh;
+  padding: 10px;
+  background-color:#D9B88C;
+  border: 1px solid #D9B88C;
+  border-radius: 5px;
+}
+.form-select{
+  width: 85vh;
+  padding: 10px;
+  background-color:#D9B88C;
+  border: 1px solid #D9B88C;
+  border-radius: 5px;
+}
+.btnn123{
+  background-color: #D9B88C;
+}
+.btnn123:hover{
+  background-color: #D9B88C;
+}

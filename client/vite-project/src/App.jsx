@@ -21,6 +21,15 @@ import SellerProducts from "./Component/Seller/Seller";
 import './Component/Seller/Seller.css'
 import Buyer from "./Component/Buyer/Buyer";
 import './Component/Buyer/Buyer.css'
+import OrderPage from "./Component/OrderPage/OrderPage";
+import AdminDashboard from "./Component/AdminDashboard/Admin";
+import './Component/AdminDashboard/Admin.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Totalsellerdetailspage from "./Component/TotalSeller/Totalsellerdetailspage";
+import './Component/TotalSeller/Totalsellerdetailspage.css'
+import TotalBuyerpage from "./Component/TotalBuyer/TotalBuyer";
+import './Component/TotalBuyer/TotalBuyer.css'
+// import './Component/BuyNow/Buynow.css'
 // import Single from "./Component/SellerSingle/SellerSingle";
 // import './Component/SellerSingle/SellerSingle.css'
 // import ProductinAddtoCart from "./Component/Add-to-cart/Add-to-cart";
@@ -47,6 +56,10 @@ function App() {
           {/* <Route path="/Single" element={<Single />}/> */}
           {/* <Route path="/Product" element={<ProductinAddtoCart />}/> */}
           <Route path="/Buyer" element={<Buyer />}/>
+          <Route path="/OrderPage" element={<OrderPage />}/>
+          <Route path="/AdminDashboard" element={<AdminDashboard/>}/>
+          <Route path="/Totalsellerdetailspage" element={<Totalsellerdetailspage />}/>
+          <Route path="/TotalBuyerpage" element={<TotalBuyerpage />}/>
         </Routes>
       </Router>
     </>

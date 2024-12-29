@@ -1,15 +1,21 @@
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+
 
 const MyAccount = () => {
   const params = new URLSearchParams(window.location.search);
   const userId = params.get('id');  // Get the 'id' parameter from the URL
-
+  let token_key = params.get('login');
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
+  const navigate = useNavigate();
+
+  
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,24 +75,44 @@ const MyAccount = () => {
 
   const handleDelete = async (productId) => {
     try {
-      const response = await fetch(`http://localhost:3000/deleteproduct/${productId}`, {
-        method: "DELETE",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      });
+        // Ensure the productId is a valid string (just for extra safety)
+        if (!productId) {
+            throw new Error("Invalid product ID");
+        }
 
-      if (!response.ok) {
-        throw new Error("Failed to delete product");
-      }
+        const response = await fetch(`http://localhost:3000/delete/${productId}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json", // You can add Content-Type header for consistency
+            },
+        });
 
-      // Remove the deleted product from the state
-      setProducts(products.filter(product => product._id !== productId));
-      alert('Product deleted successfully');
+        // Check for response status
+        if (response.ok) {
+            // Success: Remove the product from state
+            setProducts(products.filter(product => product._id !== productId));
+            alert('Product deleted successfully');
+        } else {
+            // Handle different error status codes
+            if (response.status === 404) {
+                alert('Product not found');
+            } else if (response.status === 400) {
+                alert('Invalid product ID');
+            } else {
+                alert('Failed to delete product');
+            }
+        }
     } catch (err) {
-      alert(`Error: ${err.message}`);
+        console.error("Delete error:", err);
+        alert(`Error: ${err.message}`);
     }
-  };
+};
+
+    const Single = (id) => {
+      navigate(`/Single?login=${token_key}&id=${id}`);
+    };
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -144,7 +170,8 @@ const MyAccount = () => {
                     src={`http://localhost:3000/${item.Images[0]}`}
                     alt={item.Title}
                     className="proimage"
-                    onClick={() => alert(`Viewing product ${item._id}`)}
+                    // onClick={() => alert(`Viewing product ${item._id}`)}
+                    onClick={() => Single(item._id)}
                   />
                 </div>
                 <h3>{item.Title}</h3>

@@ -76,7 +76,7 @@ function Single() {
   return (
     <>
       {/* Navigation Bar */}
-      <div className="p-5">
+      <div className="on">
         <div className="d-flex justify-content-evenly navbar122">
           <div className="d-flex">
             <div className="Onsko p-2">
@@ -197,78 +197,33 @@ function Single() {
             </div>
           </div>
         </div>
+        
       )}
 
-      {/* Footer */}
-      <div className="pt-5">
-        <div className="green">
-          <div className="row p-5">
-            <div className="col-2">
-              <div>
-                <div className="one px-3">Shop</div>
-                <ul className="pt-4">
-                  <li className="list">Home</li>
-                  <li className="list">About</li>
-                  <li className="list">Shop</li>
-                  <li className="list">Contact</li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-2">
-              <div>
-                <div className="one px-3">Policy</div>
-                <ul className="pt-4">
-                  <li className="list">Terms &amp; Conditions</li>
-                  <li className="list">Privacy Policy</li>
-                  <li className="list">Refund Policy</li>
-                  <li className="list">Shipping Policy</li>
-                  <li className="list">Accessibility Statement</li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-2">
-              <div>
-                <div className="one px-3">Contact</div>
-                <ul className="pt-4">
-                  <li className="list">500 Terry Francine Street</li>
-                  <li className="list">San Francisco, CA 94158</li>
-                  <li className="list">info@mysite.com</li>
-                  <li className="list">123-456-7890</li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-6">
-              <div className="sub">Subscribe to our newsletter</div>
-              <div className="be pt-3">
-                Be the first to know about our hottest discounts
-              </div>
-              <div className="pt-3">
-                <label htmlFor="pt-2" className="label">
-                  Email
-                </label>
-                <div className="pt-2">
-                  <div className="pt-1">
-                    <input type="email" className="input" />
-                  </div>
-                  <div className="pt-1">
-                    <input type="checkbox" />
-                    <span className="px-3 span">
-                      Yes, subscribe me to your newsletter.
-                    </span>
-                  </div>
-                </div>
-                <div className="pt-3">
-                  <button className="subb">Subscribe</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="px-5 pt-5">
-            <div className="Onsko1 fw-bold">#Onsko</div>
-          </div>
+      <div className=''>
+        <div className=''>
+          <div className='re'>Reviews</div>
+          <div className='pro'>I'm a product detail. I'm a great place to add more information about your product such as sizing, material, care and cleaning instructions. This is also a great space to write what makes this product special and how your customers can benefit from this item.</div>
         </div>
       </div>
+
+      <div className='pt-3'>
+        <div className=''>
+          <div className='re'>Return & Refund Policy</div>
+          <div className='pro'>I’m a Return and Refund policy. I’m a great place to let your customers know what to do in case they are dissatisfied with their purchase. Having a straightforward refund or exchange policy is a great way to build trust and reassure your customers that they can buy with confidence.</div>
+        </div>
+      </div>
+
+      <div className='pt-3'>
+        <div className=''>
+          <div className='re'>Shipping Info</div>
+          <div className='pro'>
+
+I'm a shipping policy. I'm a great place to add more information about your shipping methods, packaging and cost. Providing straightforward information about your shipping policy is a great way to build trust and reassure your customers that they can buy from you with confidence.</div>
+        </div>
+      </div>
+      {/* Footer */}
+      
     </>
   );
 }

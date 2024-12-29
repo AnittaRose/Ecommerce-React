@@ -264,7 +264,7 @@ function Login() {
 
       // Redirect based on user type
       if (user_type === "Admin") {
-        navigate(`/admin?login=${token_key}&id=${id}`);
+        navigate(`/AdminDashboard?login=${token_key}&id=${id}`);
       } else if (user_type === "Buyer") {
         navigate(`/Buyer?login=${token_key}&id=${id}`);
       } else if (user_type === "Seller") {

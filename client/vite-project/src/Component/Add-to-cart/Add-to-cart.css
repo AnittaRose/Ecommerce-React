@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
     margin: 20px;
+    width: 200vh;
   }
   
   /* Cart Item Container */
